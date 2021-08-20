@@ -1,0 +1,26 @@
+Well done!
+
+1.
+c, d) Usually when the task is to select all the data, expected result is select *.
+
+4.
+a) -0.25
+Expected result: SELECT COUNT(DISTINCT PersonType) AS DistinctCount.....
+You forgot to add count. When the task is about calculating amount of rows, you can't rely on the number in the corner of the window.
+
+b) Also expect select *
+
+d)-0.5
+Expected answer:
+	SELECT  ProductSubcategoryID,
+		MIN(Weight) AS Min_weight, 
+		MAX(Size) AS Max_size
+	FROM Production.Product
+	GROUP BY ProductSubcategoryID
+Actually, you were not wrong with excluding ProductSubcategoryID from select, but I think it's obvious that without this column it's hard to read and understand query results. 
+Weight and size with NULL will not be calculated in the aggregative function. When they appear in the result set, it means that there are no results for this id, which is correct.
+I understand your position and why you applied these filters. Probably, you thought that it's more correct from the business side. But you overthink the task. 
+
+I'm not sure about calculating points for task 4a and 4b, 'cause it seems that it was more collective work than yours.
+
+Mark: 8. 
