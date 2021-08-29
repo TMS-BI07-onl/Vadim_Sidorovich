@@ -1,0 +1,62 @@
+Well done!
+
+2.
+a) -0.25
+For NULLs you need to use IS NULL function. In your code all NULLs will get >=500.
+
+b)-1
+When you're not setting the condition to join (ON ...), you're getting cross join when all values from A multiplying on all values from B, which is totally not correct.
+Also, try to use JOIN, not ','.
+WHERE clause could also look simpler:
+WHERE StandardPrice>10 
+		AND (Name LIKE '%X%'
+			OR 
+			Name LIKE 'N%')
+
+3.
+a)-1
+WHERE (кол-во_продаж = 0 OR IS NULL - you will catch an error because of this row. (column_operator_value: кол-во_продаж = 0 OR кол-во_продаж IS NULL)
+SELECT YEAR(2019) is returning 1905.
+Whole select in where clause will catch an error, because you're not comparing it to any value. It could work only like where (select...)=2019 or smth like this.
+You don't have column кол-во_продаж, column количество in table Продажи is number of items for one sale, not for all of them.
+Correct answer:
+SELECT Название
+FROM Фирмы-производители 
+WHERE id NOT IN (SELECT преп.id_фирмы
+				FROM Фармпрепараты преп
+						JOIN Продажи прод ON преп.id=прод.id_фармпрепарата
+						JOIN Кассовые_чеки чек ON прод.id_чека=чек.id 
+				WHERE YEAR(Дата)=2019)
+--=
+SELECT преп.id_фирмы
+FROM Фирмы-производители фирма 
+	JOIN Фармпрепараты преп ON фирма.id=преп.id_фирмы
+	JOIN Продажи прод ON преп.id=прод.id_фармпрепарата
+	LEFT JOIN Кассовые_чеки чек ON прод.id_чека=чек.id 
+WHERE YEAR(Дата)=2019 AND чек.id IS NULL
+
+c)-1
+You don't have column кол-во_продаж, column количество in table Продажи is number of items for one sale, not for all of them.
+Even if you meant COUNT(...) by кол-во_продаж, you need to group by Id_фирмы .
+Correct answer:
+SELECT произв.Название, COUNT(преп.id) AS кол-во препаратов
+FROM Фирмы-производители произв
+	JOIN Фармпрепараты преп ON произв.id=преп.id_фирмы
+	JOIN Типы_фармпрепаратов тип ON тип.id=преп.id_типа
+WHERE Тип!='А'
+GROUP BY произв.Название
+
+
+d)-1
+Almost same errors as in 3c.
+Correct answer:
+SELECT апт.Название, преп.Название
+FROM Фармпрепараты преп ON произв.id=преп.id_фирмы
+	JOIN Продажи прод ON преп.id=прод.id_фармпрепарата
+	JOIN Кассовые_чеки чек ON прод.id_чека=чек.id
+	JOIN Аптечные_пункты апт ON апт.id=прод.id_аптечного_пункта
+WHERE DATENAME(weekday, чек.Дата)='суббота'
+
+Good news: seems that in joins you don't have so much mistakes :)
+
+Mark: 6-3
