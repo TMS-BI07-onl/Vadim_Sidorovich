@@ -1,0 +1,9 @@
+Well done!
+
+B -0.5
+record_book_number is a describing attribute. It would be better to move it to separate table.
+
+D -0.5
+In case in final table you have both brand_id and type_id, you don't need to store brand_id in the table types.
+
+Mark: 9.
