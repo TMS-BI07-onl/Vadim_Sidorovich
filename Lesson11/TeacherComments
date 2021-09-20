@@ -1,0 +1,20 @@
+Well done!
+
+Homework
+Your solution is correct, but there is a much easier way to filter out NULLs:
+...
+WHEN NOT MATCHED AND IrinaPashkovich IS NOT NULL
+THEN INSERT...
+
+Test
+1
+The information about authors is not needed in the task, so join to authors can be deleted.
+Also, I think, you accidently get the correct answer :)
+What I mean: probably, you wanted to SUM(quantity_books). By books quantity I meant кол-во экземпляров and the task was to calculate number of different books. So, thats why count will return my expected result. It will have same answer as COUNT (book_id) if we assume that quantity_books is not null.
+
+2
+-2
+Your code will return all books for an author and count of their orders. But I just want to see 1 book for an author.
+
+Mark: 10
+Test mark: 8
