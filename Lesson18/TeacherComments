@@ -1,0 +1,26 @@
+Well done!
+
+1. -1.5
+Correct answer:
+SELECT man.first_name, man.cast_name, COUNT(emp.employee_id) as cnt_of_emp
+FROM employees man JOIN employees emp ON man.employee_id=emp.manager_id
+GROUP BY man.first_name, man.cast_name
+HAVING COUNT(emp.employee_id)>6
+
+3. -1
+For this code you'll need group by.
+Also, max count of employees should be calculating for regions, not for employees.
+One of correct answers:
+SELECT TOP 1 WITH TIES region_name
+FROM Employees e JOIN Departments d ON dep.department_id=emp.department_id
+	JOIN Locations l ON d.location_id=l.location_id
+	JOIN Countries c ON l.country_id=c.country_id
+	JOIN Regions r ON c.region_id=r.region_id 
+GROUP BY region_name
+ORDER BY COUNT(employee_id) DESC
+
+5. -0.5
+having clause is useless. 
+Second solution won't work. What is year in the select?
+
+Mark: 7
